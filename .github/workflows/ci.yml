@@ -1,0 +1,47 @@
+name: CarShowroom CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build CarShowroom
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore CarShowroom.sln
+      
+    - name: Build Core library
+      run: dotnet build CarShowroom.Core/CarShowroom.Core.csproj --configuration Release --no-restore
+      
+    - name: Build Console app
+      run: dotnet build CarShowroom.Console/CarShowroom.Console.csproj --configuration Release --no-restore
+
+  test:
+    name: Run CarShowroom Tests
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: Run tests
+      run: dotnet test CarShowroom.Tests/CarShowroom.Tests.csproj --configuration Release --verbosity normal
