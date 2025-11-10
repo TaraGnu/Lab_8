@@ -23,11 +23,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Lab_8.sln
       
-    - name: Build Core library
-      run: dotnet build Lab_8.Core/Lab_8.Core.csproj --configuration Release --no-restore
-      
     - name: Build Console app
-      run: dotnet build Lab_8.Console/Lab_8.Console.csproj --configuration Release --no-restore
+      run: dotnet build Lab_8/Lab_8.csproj --configuration Release --no-restore
 
   test:
     name: Run Showroom.Test Tests
