@@ -1,9 +1,6 @@
+using Lab_8;
 namespace Showroom.Test
 {
-    using Lab_8;
-
-    public class UnitTest1
-    {
         public class ShowroomTests
         {
             [Fact]
@@ -156,6 +153,5 @@ namespace Showroom.Test
                 Assert.Equal(2, toyotaCars.Count());
             }
         }
-    }
-
+    
 }
